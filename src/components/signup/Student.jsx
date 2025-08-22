@@ -208,7 +208,7 @@ function Student() {
                 />
               </div>
               <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs sm:text-sm md:text-base py-2 sm:py-3">
-                Sign Up
+                Create Account
               </Button>
               <p className="text-center text-gray-400 text-xs sm:text-sm md:text-base mt-3">
                 Already have an account?{" "}
