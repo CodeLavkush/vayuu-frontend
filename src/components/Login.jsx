@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   useEffect(() => {
-    document.title = "Login | Vayuu ";
+    document.title = "Login - Log into your account ";
   }, []);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 p-4">
