@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { coursesSlice, facultySlice, studentsSlice, marksSlice, departmentsSlice, examsSlice, resultsSlice, subjectsSlice } from ".";
+import { authSlice, coursesSlice, facultySlice, studentsSlice, marksSlice, departmentsSlice, examsSlice, resultsSlice, subjectsSlice } from ".";
 
 const store = configureStore({
     reducer: {
@@ -11,6 +11,7 @@ const store = configureStore({
         exams: examsSlice.reducer,
         results: resultsSlice.reducer,
         subjects: subjectsSlice.reducer,
+        auth: authSlice.reducer,
     }
 })
 
