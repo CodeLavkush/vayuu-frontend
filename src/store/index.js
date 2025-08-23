@@ -6,6 +6,7 @@ import departmentsSlice from './departmentsSlice'
 import coursesSlice from './coursesSlice'
 import marksSlice from './marksSlice'
 import resultsSlice from './resultsSlice'
+import authSlice from './authSlice'
 
 
 export {
@@ -17,4 +18,5 @@ export {
     coursesSlice,
     marksSlice,
     resultsSlice,
+    authSlice,
 }

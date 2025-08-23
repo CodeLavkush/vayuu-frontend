@@ -7,9 +7,38 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
+import { adminSignup as authAdminSignup } from "@/supabase/auth";
 
 function Admin() {
   const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState("")
+  const [regNo, setRegNo] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [phoneNo, setPhoneNo] = useState("")
+  const [address, setAddress] = useState("")
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+    try {
+      const data = {
+        "college_name": name,
+        "reg_no": regNo,
+        "phone_no": phoneNo,
+        "email": email,
+        "password": password,
+        "address": address,
+      }
+      const res = await authAdminSignup(data)
+      if(res.user != null){
+        console.log(res.user)
+      }
+    } catch (error) {
+      console.error("ADMIN FORM ERROR:", error)
+      throw error
+    }
+  }
+
   useEffect(() => {
     document.title = "Admin - Create an account ";
   }, []);
@@ -36,7 +65,7 @@ function Admin() {
             </p>
           </CardHeader>
           <CardContent>
-            <form className="space-y-3 sm:space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div className="space-y-2">
                 <Label
                   htmlFor="name"
@@ -49,6 +78,8 @@ function Admin() {
                   type="text"
                   placeholder="ABC College"
                   required
+                  value={name}
+                  onChange={(e)=> setName(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 text-xs sm:text-sm md:text-base"
                 />
               </div>
@@ -64,6 +95,8 @@ function Admin() {
                   type="text"
                   placeholder="2023XXXX"
                   required
+                  value={regNo}
+                  onChange={(e)=> setRegNo(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 text-xs sm:text-sm md:text-base"
                 />
               </div>
@@ -79,6 +112,8 @@ function Admin() {
                   type="email"
                   placeholder="you@example.com"
                   required
+                  value={email}
+                  onChange={(e)=> setEmail(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 text-xs sm:text-sm md:text-base"
                 />
               </div>
@@ -95,6 +130,8 @@ function Admin() {
                     type={showPassword ? "text" : "password"}
                     placeholder="********"
                     required
+                    value={password}
+                    onChange={(e)=> setPassword(e.target.value)}
                     className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 text-xs sm:text-sm md:text-base pr-10"
                   />
                   <button
@@ -122,6 +159,8 @@ function Admin() {
                   type="tel"
                   placeholder="+91 9876543210"
                   required
+                  value={phoneNo}
+                  onChange={(e)=> setPhoneNo(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 text-xs sm:text-sm md:text-base"
                 />
               </div>
@@ -136,10 +175,12 @@ function Admin() {
                   id="address"
                   placeholder="Your address here"
                   required
+                  value={address}
+                  onChange={(e)=> setAddress(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 text-xs sm:text-sm md:text-base"
                 />
               </div>
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs sm:text-sm md:text-base py-2 sm:py-3">
+              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs sm:text-sm md:text-base py-2 sm:py-3">
                 Create Account
               </Button>
               <p className="text-center text-gray-400 text-xs sm:text-sm md:text-base mt-3">
