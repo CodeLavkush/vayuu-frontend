@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
     useEffect(()=>{
@@ -34,25 +35,23 @@ function Home() {
               asChild
               className="w-full sm:w-auto text-base sm:text-lg md:text-xl bg-violet-600 hover:bg-violet-700 text-white rounded-lg px-6 py-2 font-semibold shadow-lg"
             >
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 target="_blank"
-                rel="noopener noreferrer"
               >
                 Login
-              </a>
+              </Link>
             </Button>
             <Button
               asChild
               className="w-full sm:w-auto text-base sm:text-lg md:text-xl bg-gray-800 hover:bg-purple-700 text-white rounded-lg px-6 py-2 font-semibold shadow-lg"
             >
-              <a
-                href="/signup"
+              <Link
+                to="/signup"
                 target="_blank"
-                rel="noopener noreferrer"
               >
                 Signup
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
