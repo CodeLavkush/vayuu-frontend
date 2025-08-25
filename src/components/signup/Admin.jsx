@@ -30,8 +30,8 @@ function Admin() {
         "address": address,
       }
       const res = await authAdminSignup(data)
-      if(res.user != null){
-        console.log(res.user)
+      if(res != null){
+        console.log(res)
       }
     } catch (error) {
       console.error("ADMIN FORM ERROR:", error)
