@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { Login, Admin, Faculty, Student, Signup, Home } from "./pages/index"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ProtectedRoute } from './components'
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: (
+          <ProtectedRoute>
+            <Home/>
+          </ProtectedRoute>
+        )
       },
       {
         path: "login",
