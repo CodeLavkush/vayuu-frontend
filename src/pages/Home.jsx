@@ -35,23 +35,13 @@ function Home() {
               asChild
               className="w-full sm:w-auto text-base sm:text-lg md:text-xl bg-violet-600 hover:bg-violet-700 text-white rounded-lg px-6 py-2 font-semibold shadow-lg"
             >
-              <Link
-                to="/login"
-                target="_blank"
-              >
-                Login
-              </Link>
+              <Link to="/login">Login</Link>
             </Button>
             <Button
               asChild
               className="w-full sm:w-auto text-base sm:text-lg md:text-xl bg-gray-800 hover:bg-purple-700 text-white rounded-lg px-6 py-2 font-semibold shadow-lg"
             >
-              <Link
-                to="/signup"
-                target="_blank"
-              >
-                Signup
-              </Link>
+              <Link to="/signup">Signup</Link>
             </Button>
           </div>
         </div>
