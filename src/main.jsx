@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import { Login, Admin, Faculty, Student, Signup, Home } from "./pages/index"
+import { Login, Admin, Faculty, Student, Signup, Home, AdminDashBoard, FacultyDashBoard, StudentDashBoard } from "./pages/index"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ProtectedRoute } from './components'
 import store from './store/store'
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Home/>
       },
       {
@@ -35,6 +35,30 @@ const router = createBrowserRouter([
       {
         path: "signup/student",
         element: <Student />,
+      },
+      {
+        path: "dashboard/admin",
+        element: (
+          <ProtectedRoute>
+            <AdminDashBoard/>
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "dashboard/faculty",
+        element: (
+          <ProtectedRoute>
+            <FacultyDashBoard/>
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "dashboard/student",
+        element: (
+          <ProtectedRoute>
+            <StudentDashBoard/>
+          </ProtectedRoute>
+        )
       },
       {
         path: "*",

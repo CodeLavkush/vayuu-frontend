@@ -7,8 +7,7 @@ function ProtectedRoute({ children, authentication = true}) {
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
-    // const authStatus = useSelector((state)=> state.auth.status)
-    const authStatus = false
+    const authStatus = useSelector((state)=> state.auth.status)
 
     useEffect(()=>{
         if(authentication && authStatus !== authentication){

@@ -5,10 +5,50 @@ import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authLogin } from "@/supabase/auth";
+import { useDispatch } from "react-redux";
+import { setMessage, login as loginSlice } from "@/store/authSlice";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+    try {
+      const data = {
+        "email": email,
+        "password": password,
+      }
+
+      const res = await authLogin(data)
+      if(res != null){
+        dispatch(loginSlice(res.user))
+        dispatch(setMessage({error: false, text: "Logged in successfully"}))
+        if(res.user.user_metadata.role === "admin"){
+          navigate("/dashboard/admin")
+        }
+        else if(res.user.user_metadata.role === "faculty"){
+          navigate("/dashboard/faculty")
+        }
+        else if(res.user.user_metadata.role === "student"){
+          navigate("/dashboard/student")
+        }
+        else{
+          navigate("/")
+        }
+      }
+    } catch (error) {
+      console.error("LOGIN FORM ERROR:", error)
+      dispatch(setMessage({error: true, text: "Login failed!"}))
+      throw error
+    }
+  }
+
   useEffect(() => {
     document.title = "Login - Log into your account";
   }, []);
@@ -30,7 +70,7 @@ function Login() {
             <p className="text-gray-400 mt-2">College Management System</p>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-gray-200">
                   Email
@@ -40,6 +80,8 @@ function Login() {
                   type="email"
                   placeholder="you@example.com"
                   required
+                  value={email}
+                  onChange={(e)=> setEmail(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500"
                 />
               </div>
@@ -53,6 +95,8 @@ function Login() {
                     type={showPassword ? "text" : "password"}
                     placeholder="********"
                     required
+                    value={password}
+                    onChange={(e)=> setPassword(e.target.value)}
                     className="bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-500 pr-10"
                   />
                   <button

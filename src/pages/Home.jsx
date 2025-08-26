@@ -9,7 +9,6 @@ function Home() {
   return (
     <div className="min-h-screen w-full relative bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 flex flex-col">
       <div className="flex-1 w-full grid grid-cols-1 lg:grid-cols-2">
-        {/* Left Content */}
         <div className="flex flex-col justify-center items-center lg:items-start px-6 sm:px-10 lg:px-16 gap-6 z-10 text-center lg:text-left py-10">
           <img
             className="w-20 sm:w-28 md:w-32 lg:w-36 fade-el drop-shadow-lg"
@@ -45,8 +44,7 @@ function Home() {
             </Button>
           </div>
         </div>
-
-        {/* Right Content (Features) */}
+        
         <div className="hidden lg:flex flex-col justify-center items-center gap-8 z-10 py-10">
           <div className="fade-el bg-white/10 backdrop-blur-md rounded-2xl p-6 w-64 xl:w-72 text-center shadow-lg border border-gray-700 hover:scale-105 transition-transform text-white">
             <div className="text-violet-400 mb-3">

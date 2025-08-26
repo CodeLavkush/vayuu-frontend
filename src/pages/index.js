@@ -4,6 +4,9 @@ import Faculty from "./Faculty";
 import Admin from "./Admin";
 import Signup from "./Signup";
 import Home from "./Home";
+import AdminDashBoard from "./AdminDashBoard";
+import StudentDashBoard from "./StudentDashBoard";
+import FacultyDashBoard from "./FacultyDashBoard";
 
 export {
     Login,
@@ -12,4 +15,7 @@ export {
     Admin,
     Signup,
     Home,
+    AdminDashBoard,
+    StudentDashBoard,
+    FacultyDashBoard
 }

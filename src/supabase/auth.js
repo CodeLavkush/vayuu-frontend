@@ -1,5 +1,3 @@
-import conf from "@/conf/conf";
-import { createClient } from "@supabase/supabase-js";
 import generateId from "@/helper/generateId";
 import client from "./supabaseClient";
 
@@ -119,8 +117,22 @@ async function studentSignup({ full_name, phone_no, address, dob, blood_group, c
     }
 }
 
+async function authLogin({ email, password }) {
+    try {
+        const { data: authData, error: authError } = await client.auth.signInWithPassword({ email, password })
+
+        if(authError) throw authError
+
+        return authData
+    } catch (error) {
+        console.error("USER LOGIN ERROR:", error)
+        throw error
+    }
+}
+
 export {
     adminSignup,
     facultySignup,
     studentSignup,
+    authLogin,
 }
