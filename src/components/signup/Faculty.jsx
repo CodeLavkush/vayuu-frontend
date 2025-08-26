@@ -16,6 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { setMessage } from '@/store/authSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Faculty() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +31,8 @@ export default function Faculty() {
   const [selectedCollege, setSelectedCollege] = useState(null);
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState('');
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -44,10 +49,12 @@ export default function Faculty() {
 
       const res = await authFacultySignup(data)
       if(res != null){
-        console.log(res)
+        dispatch(setMessage({error: false, text: "Your profile is created!"}))
+        navigate("/login")
       }
     } catch (error) {
       console.error("FACULTY FORM ERROR:", error)
+      dispatch(setMessage({error: true, text: "Profile creation failed!"}))
       throw error
     }
   }

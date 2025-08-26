@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Eye, EyeOff } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getCollegeIdAndName, getDepartmentIdAndName, getCoursesIdAndName } from '@/supabase/getTableData';
 import { studentSignup } from '@/supabase/auth';
 import {
@@ -19,6 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useDispatch } from 'react-redux';
+import { setMessage } from '@/store/authSlice';
 
 function Student() {
   const [date, setDate] = useState(null);
@@ -36,6 +38,8 @@ function Student() {
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -56,10 +60,12 @@ function Student() {
 
       const res = await studentSignup(data)
       if(res != null){
-        console.log(res)
+        dispatch(setMessage({error: false, text: "Your profile is created!"}))
+        navigate("/login")
       }
     } catch (error) {
       console.error("STUDENT FORM ERROR:", error)
+      dispatch(setMessage({error: true, text: "Profile creation failed!"}))
       throw error
     }
   }

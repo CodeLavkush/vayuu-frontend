@@ -3,15 +3,15 @@ import { authSlice, coursesSlice, facultySlice, studentsSlice, marksSlice, depar
 
 const store = configureStore({
     reducer: {
-        courses: coursesSlice.reducer,
-        faculty: facultySlice.reducer,
-        students: studentsSlice.reducer,
-        marks: marksSlice.reducer,
-        departments: departmentsSlice.reducer,
-        exams: examsSlice.reducer,
-        results: resultsSlice.reducer,
-        subjects: subjectsSlice.reducer,
-        auth: authSlice.reducer,
+        courses: coursesSlice,
+        faculty: facultySlice,
+        students: studentsSlice,
+        marks: marksSlice,
+        departments: departmentsSlice,
+        exams: examsSlice,
+        results: resultsSlice,
+        subjects: subjectsSlice,
+        auth: authSlice,
     }
 })
 
