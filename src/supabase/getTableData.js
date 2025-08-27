@@ -1,5 +1,3 @@
-import conf from "@/conf/conf";
-import { createClient } from "@supabase/supabase-js";
 import client from "./supabaseClient";
 
 async function getCollegeIdAndName() {
@@ -53,8 +51,71 @@ async function getCoursesIdAndName(college_id, department_id) {
     }
 }
 
+async function getCollegeById({ user_id }) {
+    try {
+        const {data: adminData, error: adminError} = await client
+        .from("Admin")
+        .select("*")
+        .eq("user_id", user_id)
+        .single()
+
+        if(adminError) throw adminError
+
+        const { data: collegeData, error: collegeError } = await client
+        .from("College")
+        .select("*")
+        .eq("id", adminData.college_id)
+        .single()
+
+        if(collegeError) throw collegeError
+
+        return collegeData
+
+    } catch (error) {
+        console.error("Error fetching college:", error)
+        throw error
+    }
+}
+
+async function getStudentById({ user_id }) {
+    try {
+        const { data, error } = await client
+        .from("Students")
+        .select("*")
+        .eq("user_id", user_id)
+        .single()
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error("Error fetching student:", error)
+        throw error
+    }
+}
+
+async function getFacultyById({ user_id }) {
+    try {
+        const { data, error } = await client
+        .from("Faculty")
+        .select("*")
+        .eq("user_id", user_id)
+        .single()
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error("Error fetching faculty:", error)
+        throw error
+    }
+}
+
 export {
     getCollegeIdAndName,
     getDepartmentIdAndName,
     getCoursesIdAndName,
+    getCollegeById,
+    getFacultyById,
+    getStudentById,
 }
