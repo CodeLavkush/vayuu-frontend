@@ -51,7 +51,7 @@ async function getCoursesIdAndName(college_id, department_id) {
     }
 }
 
-async function getCollegeById({ user_id }) {
+async function getAdminByUserId({user_id}) {
     try {
         const {data: adminData, error: adminError} = await client
         .from("Admin")
@@ -61,23 +61,14 @@ async function getCollegeById({ user_id }) {
 
         if(adminError) throw adminError
 
-        const { data: collegeData, error: collegeError } = await client
-        .from("College")
-        .select("*")
-        .eq("id", adminData.college_id)
-        .single()
-
-        if(collegeError) throw collegeError
-
-        return collegeData
-
+        return adminData
     } catch (error) {
-        console.error("Error fetching college:", error)
+        console.error("Error fetching admin:", error)
         throw error
     }
 }
 
-async function getStudentById({ user_id }) {
+async function getStudentByUserId({ user_id }) {
     try {
         const { data, error } = await client
         .from("Students")
@@ -94,7 +85,7 @@ async function getStudentById({ user_id }) {
     }
 }
 
-async function getFacultyById({ user_id }) {
+async function getFacultyByUserId({ user_id }) {
     try {
         const { data, error } = await client
         .from("Faculty")
@@ -111,11 +102,69 @@ async function getFacultyById({ user_id }) {
     }
 }
 
+async function getDepartmentById(id) {
+    try {
+        const { data, error } = await client
+        .from("Department")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error("Error fetching department:", error)
+        throw error
+    }
+}
+
+async function getCourseById(id) {
+    try {
+        const { data, error } = await client
+        .from("Courses")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+        if(error) throw error
+
+        console.log(data)
+
+        return data
+    } catch (error) {
+        console.error("Error fetching course:", error)
+        throw error
+    }
+}
+
+async function getCollegeById(id) {
+    try {
+        const { data, error } = await client
+        .from("College")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+        if(error) throw error
+
+        console.log(data)
+
+        return data
+    } catch (error) {
+        console.error("Error fetching college:", error)
+        throw error
+    }
+}
+
 export {
     getCollegeIdAndName,
     getDepartmentIdAndName,
     getCoursesIdAndName,
+    getFacultyByUserId,
+    getStudentByUserId,
+    getAdminByUserId,
+    getDepartmentById,
+    getCourseById,
     getCollegeById,
-    getFacultyById,
-    getStudentById,
 }
