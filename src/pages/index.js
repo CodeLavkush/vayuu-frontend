@@ -6,7 +6,7 @@ import Signup from "./Signup";
 import Home from "./Home";
 import AdminDashboard from "./AdminDashBoard";
 import FacultyDashboard from "./FacultyDashBoard";
-import StudentDashboard from "./StudentDashboard";
+import StudentDashboard from "./StudentDashBoard";
 import Dashboard from "./Dashboard";
 
 export {
