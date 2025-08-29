@@ -8,7 +8,7 @@ import {
   Student,
   Signup,
   Home,
-  AdminDashBoard,
+  AdminDashboard,
   FacultyDashboard,
   StudentDashboard,
   Dashboard,
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
             path: 'admin',
             element: (
               <ProtectedRoute>
-                <AdminDashBoard/>
+                <AdminDashboard/>
               </ProtectedRoute>
             ),
           },
