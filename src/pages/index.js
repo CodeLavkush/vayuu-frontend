@@ -4,7 +4,7 @@ import Faculty from "./Faculty";
 import Admin from "./Admin";
 import Signup from "./Signup";
 import Home from "./Home";
-import AdminDashboard from "./AdminDashboard";
+import AdminDashboard from "./AdminDashBoard";
 import FacultyDashboard from "./FacultyDashboard";
 import StudentDashboard from "./StudentDashboard";
 import Dashboard from "./Dashboard";
