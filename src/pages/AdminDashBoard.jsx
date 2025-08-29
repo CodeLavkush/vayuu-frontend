@@ -2,7 +2,7 @@ import { NavDashboard } from '@/components'
 import { Book, BookOpenCheck, CheckCheck, Flag, User, Users } from 'lucide-react'
 import React, { useEffect } from 'react'
 
-function AdminDashBoard() {
+function AdminDashboard() {
   useEffect(()=> {
     document.title = "Admin Dashboard - vayuu"
   }, [])
@@ -18,4 +18,4 @@ function AdminDashBoard() {
   return <NavDashboard tiles={tiles}/>
 }
 
-export default AdminDashBoard
+export default AdminDashboard
