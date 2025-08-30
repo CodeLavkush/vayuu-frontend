@@ -48,7 +48,7 @@ export default function Faculty() {
       }
 
       const res = await authFacultySignup(data)
-      if(res != null){
+      if(res){
         dispatch(setMessage({error: false, text: "Your profile is created!"}))
         navigate("/login")
       }

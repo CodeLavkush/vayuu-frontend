@@ -49,35 +49,35 @@ function Departments() {
             <CardContent className="space-y-4 text-gray-200 text-sm sm:text-base">
               <p className='flex justify-items-start items-start gap-2 w-full'>
                 <User/>
-                <p>{selectedPerson.full_name}</p>
+                <p>{selectedPerson.full_name || "NA"} </p>
               </p>
               {selectedPerson.type === 'student' ? (
                 <p className='flex justify-items-start items-start gap-2 w-full'>
                   <IdCard/>
-                  <p>{selectedPerson.student_id}</p>
+                  <p>{selectedPerson.student_id || "NA"} </p>
                 </p>
               ) : (
                 <p className='flex justify-items-start items-start gap-2 w-full'>
                   <IdCard/>
-                  <p>{selectedPerson.faculty_id}</p>
+                  <p>{selectedPerson.faculty_id || "NA"} </p>
                 </p>
               )}
               <p className='flex justify-items-start items-start gap-2 w-full'>
                 <Dock/>
-                <p>{selectedPerson.department_name}</p>
+                <p>{selectedPerson.department_name || "NA"} </p>
               </p>
               <p className='flex justify-items-start items-start gap-2 w-full'>
                 <Phone/>
-                <p>{selectedPerson.phone_no}</p>
+                <p>{selectedPerson.phone_no || "NA"} </p>
               </p>
               <p className='flex justify-items-start items-start gap-2 w-full'>
                 <MapPin/>
-                <p>{selectedPerson.address}</p>
+                <p>{selectedPerson.address || "NA"} </p>
               </p>
               {selectedPerson.email && (
                 <p className='flex justify-items-start items-start gap-2 w-full'>
                   <Mail/>
-                  <p>{selectedPerson.email}</p>
+                  <p>{selectedPerson.email || "NA"} </p>
                 </p>
               )}
             </CardContent>
@@ -85,7 +85,6 @@ function Departments() {
         </div>
       )}
 
-      {/* Departments Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
         {departments && departments.length > 0 ? (
           departments.map((department) => {

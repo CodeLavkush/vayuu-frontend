@@ -59,7 +59,7 @@ function Student() {
       }
 
       const res = await studentSignup(data)
-      if(res != null){
+      if(res){
         dispatch(setMessage({error: false, text: "Your profile is created!"}))
         navigate("/login")
       }

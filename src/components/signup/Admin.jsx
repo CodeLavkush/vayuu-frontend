@@ -34,7 +34,7 @@ function Admin() {
         "address": address,
       }
       const res = await authAdminSignup(data)
-      if(res != null){
+      if(res){
         dispatch(setMessage({error: false, text: "Your profile is created!"}))
         navigate("/login")
       }
