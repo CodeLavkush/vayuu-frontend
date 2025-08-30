@@ -6,13 +6,19 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { MoveLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { authLogout } from '@/supabase/auth';
+import { logout } from '@/store/authSlice';
+import { useDispatch } from 'react-redux';
 
 function Info() {
   const authUser = useSelector((state) => state.auth.data);
   const [faculty, setFaculty] = useState({});
   const [department, setDepartment] = useState({});
   const [college, setCollege] = useState({});
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -31,6 +37,20 @@ function Info() {
     }
     fetchData();
   }, [authUser]);
+
+  const handleLogout = async ()=>{
+    try {
+      const res = await authLogout()
+      if(res){
+        dispatch(logout())
+        navigate("/login")
+      }
+    } catch (error) {
+      console.error("Error logout")
+      throw error
+    }
+  }
+
   return (
     <div className="bg-gray-900 min-h-screen w-screen flex justify-center items-center flex-col text-white p-4">
       <Card className="w-full max-w-2xl max-h-screen overflow-y-auto bg-gray-800 text-white border-purple-700 rounded-xl">
@@ -68,7 +88,7 @@ function Info() {
 
         <CardFooter>
           <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-0">
-            <Button className="bg-red-600 hover:bg-red-800 cursor-pointer w-full md:w-auto">
+            <Button onClick={handleLogout} className="bg-red-600 hover:bg-red-800 cursor-pointer w-full md:w-auto">
               Logout
             </Button>
             <div className="flex justify-center items-center gap-2 hover:underline hover:text-sky-500 cursor-pointer">

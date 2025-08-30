@@ -130,7 +130,7 @@ async function authLogin({ email, password }) {
     }
 }
 
-async function  logout() {
+async function  authLogout() {
     try {
         const { error } = await client.auth.signOut()
 
@@ -149,4 +149,5 @@ export {
     facultySignup,
     studentSignup,
     authLogin,
+    authLogout,
 }
