@@ -130,6 +130,20 @@ async function authLogin({ email, password }) {
     }
 }
 
+async function  logout() {
+    try {
+        const { error } = await client.auth.signOut()
+
+        if(error) throw error
+
+        return true
+
+    } catch (error) {
+        console.error("LOGOUT ERROR:", error)
+        throw error
+    }
+}
+
 export {
     adminSignup,
     facultySignup,
