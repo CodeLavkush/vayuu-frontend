@@ -129,8 +129,6 @@ async function getCourseById(id) {
 
         if(error) throw error
 
-        console.log(data)
-
         return data
     } catch (error) {
         console.error("Error fetching course:", error)
@@ -148,14 +146,28 @@ async function getCollegeById(id) {
 
         if(error) throw error
 
-        console.log(data)
-
         return data
     } catch (error) {
         console.error("Error fetching college:", error)
         throw error
     }
 }
+
+async function getAllEntriesFromTable(tableName) {
+    try {
+        const { data, error } = await client
+        .from(tableName)
+        .select("*")
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error(`Error fetching ${tableName}:`, error)
+        throw error
+    }
+}
+
 
 export {
     getCollegeIdAndName,
@@ -167,4 +179,5 @@ export {
     getDepartmentById,
     getCourseById,
     getCollegeById,
+    getAllEntriesFromTable,
 }
