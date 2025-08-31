@@ -15,11 +15,12 @@ import {
 } from './pages/index';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ProtectedRoute } from './components';
-import store from './store/store';
+import { store, persistor } from './store/store';
 import { Provider } from 'react-redux';
 import { AdminInfo, AdminDeparments, AdminCourses, AdminExams, AdminNotice, AdminResults } from './components/dashboard/admin';
 import { FacultyInfo, FacultyExams, FacultyResults, FacultySubjects, FacultyNotice, FacultyStudents } from './components/dashboard/faculty';
 import { StudentInfo, StudentExams, StudentResults, StudentSubjects, StudentNotice } from './components/dashboard/student';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
@@ -230,6 +231,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
   </Provider>
 );

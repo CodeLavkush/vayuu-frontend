@@ -19,8 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useDispatch } from 'react-redux';
-import { setMessage } from '@/store/authSlice';
+import { SuccessToast } from '@/helper/SuccessToast';
+import { ErrorToast } from '@/helper/ErrorToast';
 
 function Student() {
   const [date, setDate] = useState(null);
@@ -38,7 +38,6 @@ function Student() {
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleSubmit = async (e)=>{
@@ -60,12 +59,12 @@ function Student() {
 
       const res = await studentSignup(data)
       if(res){
-        dispatch(setMessage({error: false, text: "Your profile is created!"}))
+        SuccessToast("Your profile is created!")
         navigate("/login")
       }
     } catch (error) {
       console.error("STUDENT FORM ERROR:", error)
-      dispatch(setMessage({error: true, text: "Profile creation failed!"}))
+      ErrorToast("Profile creation failed!")
       throw error
     }
   }

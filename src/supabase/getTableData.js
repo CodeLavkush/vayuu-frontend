@@ -100,6 +100,22 @@ async function getAllEntriesFromTable(tableName) {
     }
 }
 
+async function getTableInAscendingOrder(order_by, isAscending, tableName) {
+    try {
+        const { data, error } = await client
+        .from(tableName)
+        .select("*")
+        .order(order_by, { ascending: isAscending})
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error(`Error fetching ${tableName}:`, error)
+        throw error
+    }
+}
+
 
 export {
     getCollegeIdAndName,
@@ -108,4 +124,5 @@ export {
     getTableByUserId,
     getTableById,
     getAllEntriesFromTable,
+    getTableInAscendingOrder,
 }

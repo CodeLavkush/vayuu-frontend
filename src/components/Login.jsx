@@ -8,7 +8,9 @@ import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { authLogin } from "@/supabase/auth";
 import { useDispatch } from "react-redux";
-import { setMessage, login as loginSlice } from "@/store/authSlice";
+import { login as loginSlice } from "@/store/authSlice";
+import { SuccessToast } from "@/helper/SuccessToast";
+import { ErrorToast } from "@/helper/ErrorToast";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,9 +28,10 @@ function Login() {
       }
 
       const res = await authLogin(data)
+
       if(res != null){
-        dispatch(loginSlice(res.user))
-        dispatch(setMessage({error: false, text: "Logged in successfully"}))
+        dispatch(loginSlice(res))
+        SuccessToast("Logged in successfully")
         if(res.user.user_metadata.role === "admin"){
           navigate("/dashboard/admin")
         }
@@ -44,7 +47,7 @@ function Login() {
       }
     } catch (error) {
       console.error("LOGIN FORM ERROR:", error)
-      dispatch(setMessage({error: true, text: "Login failed!"}))
+      ErrorToast("Login failed!")
       throw error
     }
   }

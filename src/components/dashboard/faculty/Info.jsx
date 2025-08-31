@@ -40,11 +40,8 @@ function Info() {
 
   const handleLogout = async ()=>{
     try {
-      const res = await authLogout()
-      if(res){
-        dispatch(logout())
-        navigate("/login")
-      }
+      await authLogout()
+      navigate("/login")
     } catch (error) {
       console.error("Error logout")
       throw error

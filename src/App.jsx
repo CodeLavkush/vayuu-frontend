@@ -1,22 +1,40 @@
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Outlet } from "react-router-dom"
 import { Toaster } from "sonner"
-import { SuccessToast } from "./helper/SuccessToast"
-import { ErrorToast } from "./helper/ErrorToast"
+import client from "./supabase/supabaseClient"
+import { login, logout } from "./store/authSlice"
 
 function App() {
-  const authMessage = useSelector((state)=> state.auth.message)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (authMessage !== null) {
-      authMessage.error ? ErrorToast(authMessage.text) : SuccessToast(authMessage.text)
+    // restore session on app start
+    const initSession = async () => {
+      const { data: { session } } = await client.auth.getSession()
+      if (session?.user) {
+        dispatch(login(session))
+      }
     }
-  }, [authMessage]);
+    initSession()
+
+    // keep Redux in sync with auth state changes
+    const { data: { subscription } } = client.auth.onAuthStateChange(
+      (_event, session) => {
+        if (session?.user) {
+          dispatch(login(session))
+        } else {
+          dispatch(logout())
+        }
+      }
+    )
+
+    return () => subscription.unsubscribe()
+  }, [dispatch])
 
   return (
     <>
-      {authMessage ? <Toaster richColors position="top-right" duration={4000}/> : '' }
+      <Toaster richColors position="top-right" duration={4000}/>
       <Outlet/>
     </>
   )

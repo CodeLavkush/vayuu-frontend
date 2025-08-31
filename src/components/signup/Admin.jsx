@@ -8,8 +8,9 @@ import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { adminSignup as authAdminSignup } from "@/supabase/auth";
-import { setMessage } from "@/store/authSlice";
 import { useDispatch } from "react-redux";
+import { SuccessToast } from "@/helper/SuccessToast";
+import { ErrorToast } from "@/helper/ErrorToast";
 
 function Admin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +21,6 @@ function Admin() {
   const [phoneNo, setPhoneNo] = useState("")
   const [address, setAddress] = useState("")
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -35,12 +35,12 @@ function Admin() {
       }
       const res = await authAdminSignup(data)
       if(res){
-        dispatch(setMessage({error: false, text: "Your profile is created!"}))
+        SuccessToast("Your profile is created!")
         navigate("/login")
       }
     } catch (error) {
       console.error("ADMIN FORM ERROR:", error)
-      dispatch(setMessage({error: true, text: "Profile creation failed!"}))
+      ErrorToast("Profile creation failed!")
       throw error
     }
   }

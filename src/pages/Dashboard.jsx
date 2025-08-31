@@ -9,13 +9,14 @@ import { setMarks } from "@/store/marksSlice"
 import { setResults } from "@/store/resultsSlice"
 import { setStudents } from "@/store/studentsSlice"
 import { setSubjects } from "@/store/subjectsSlice"
+import { setNotice } from "@/store/noticeSlice"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 
 function Dashboard() {
 
   const authUser = useSelector((state)=> state.auth.data)
-  const tableNames = ["Students", "Faculty", "Courses", "Department", "Marks", "Results", "Subjects", "Exams"]
+  const tableNames = ["Students", "Faculty", "Courses", "Department", "Marks", "Results", "Subjects", "Exams", "Notice"]
   const dispatch = useDispatch()
 
   useEffect(()=>{
@@ -49,6 +50,9 @@ function Dashboard() {
           }
           else if(tableNames[i] === "Exams"){
             dispatch(setExams(res))
+          }
+          else if(tableNames[i] === "Notice"){
+            dispatch(setNotice(res))
           }
         }
       } catch (error) {
