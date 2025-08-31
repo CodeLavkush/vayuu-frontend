@@ -1,9 +1,4 @@
-import {
-  getCollegeById,
-  getCourseById,
-  getDepartmentById,
-  getStudentByUserId,
-} from '@/supabase/getTableData';
+import { getTableById, getTableByUserId } from '@/supabase/getTableData';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,17 +18,17 @@ function Info() {
   const [department, setDepartment] = useState({});
   const [college, setCollege] = useState({});
   const [course, setCourse] = useState({});
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const studentData = await getStudentByUserId({ user_id: authUser.id });
-        const collegeData = await getCollegeById(studentData.college_id);
-        const departmentData = await getDepartmentById(studentData.department_id);
-        const courseData = await getCourseById(studentData.course_id);
-        if (studentData != null) {
+        const studentData = await getTableByUserId('Students', authUser.id);
+        const collegeData = await getTableById('College', studentData.college_id);
+        const departmentData = await getTableById('Department', studentData.department_id);
+        const courseData = await getTableById('Courses', studentData.course_id);
+        if (studentData) {
           setStudent(studentData);
           setCollege(collegeData);
           setDepartment(departmentData);
@@ -47,18 +42,18 @@ function Info() {
     fetchData();
   }, [authUser]);
 
-  const handleLogout = async ()=>{
+  const handleLogout = async () => {
     try {
-      const res = await authLogout()
-      if(res){
-        dispatch(logout())
-        navigate("/login")
+      const res = await authLogout();
+      if (res) {
+        dispatch(logout());
+        navigate('/login');
       }
     } catch (error) {
-      console.error("Error logout")
-      throw error
+      console.error('Error logout');
+      throw error;
     }
-  }
+  };
 
   return (
     <div className="bg-gray-900 min-h-screen w-screen flex justify-center items-center flex-col text-white p-4">
@@ -103,7 +98,10 @@ function Info() {
 
         <CardFooter>
           <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-0">
-            <Button onClick={handleLogout} className="bg-red-600 hover:bg-red-800 cursor-pointer w-full md:w-auto">
+            <Button
+              onClick={handleLogout}
+              className="bg-red-600 hover:bg-red-800 cursor-pointer w-full md:w-auto"
+            >
               Logout
             </Button>
             <div className="flex justify-center items-center gap-2 hover:underline hover:text-sky-500 cursor-pointer">

@@ -1,4 +1,4 @@
-import { getCollegeById, getDepartmentById, getFacultyByUserId } from '@/supabase/getTableData';
+import { getTableById, getTableByUserId } from '@/supabase/getTableData';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,16 +22,16 @@ function Info() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const facultyData = await getFacultyByUserId({ user_id: authUser.id });
-        const departmentData = await getDepartmentById(facultyData.department_id);
-        const collegeData = await getCollegeById(facultyData.college_id);
-        if (facultyData != null) {
+        const facultyData = await getTableByUserId("Faculty", authUser.id);
+        const departmentData = await getTableById("Department", facultyData.department_id);
+        const collegeData = await getTableById("College", facultyData.college_id);
+        if (facultyData) {
           setDepartment(departmentData);
           setFaculty(facultyData);
           setCollege(collegeData);
         }
       } catch (error) {
-        console.error('ERROR while fetching faculty info');
+        console.error('ERROR while fetching info');
         throw error;
       }
     }

@@ -24,7 +24,7 @@ function Dashboard() {
         for(let i = 0; i <= tableNames.length; i++){
           const res = await getAllEntriesFromTable(tableNames[i])
 
-          if(res == null) throw "Cannot get response"
+          if(!res) throw "Cannot get response"
 
           if(tableNames[i] === "Students"){
             dispatch(setStudents(res))

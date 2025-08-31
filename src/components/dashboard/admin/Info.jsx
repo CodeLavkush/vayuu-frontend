@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getCollegeById, getAdminByUserId } from '@/supabase/getTableData';
+import { getTableById, getTableByUserId } from '@/supabase/getTableData';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -21,14 +21,14 @@ function Info() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const adminData = await getAdminByUserId({ user_id: authUser.id });
-        const collegeData = await getCollegeById(adminData.college_id);
-        if (adminData != null) {
+        const adminData = await getTableByUserId("Admin", authUser.id);
+        const collegeData = await getTableById("College", adminData.college_id);
+        if (adminData) {
           setAdmin(adminData);
           setCollege(collegeData);
         }
       } catch (error) {
-        console.log('ERROR While fetching admin info');
+        console.log('ERROR While fetching admin and college info');
         throw error;
       }
     }
