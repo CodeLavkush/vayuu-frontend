@@ -15,7 +15,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { addCourse, addDepartment } from '@/supabase/postTableData';
+import { addTableData } from '@/supabase/postTableData';
 import { SuccessToast } from '@/helper/SuccessToast';
 import { ErrorToast } from '@/helper/ErrorToast';
 import { addDepartments as addDepartmentsSlice } from '@/store/departmentsSlice';
@@ -67,7 +67,7 @@ function Info() {
         "name": department,
         "college_id": college?.id,
       }
-      const res = await addDepartment(data)
+      const res = await addTableData("Department", data)
       if(res){
         dispatch(addDepartmentsSlice(res))
         setDepartments((depts)=> [...depts, res])
@@ -89,7 +89,7 @@ function Info() {
         "department_id": department[0]?.id,
         "college_id": college?.id,
       }
-      const res = await addCourse(data)
+      const res = await addTableData("Courses", data)
       if(res){
         dispatch(addCoursesSlice(res))
         SuccessToast("Course added!")

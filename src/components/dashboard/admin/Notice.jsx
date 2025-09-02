@@ -4,7 +4,7 @@ import { MoveLeft } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { addNotice } from '@/supabase/postTableData';
+import { addTableData } from '@/supabase/postTableData';
 import { setNotice as setNoticeSlice, deleteNotice } from '@/store/noticeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,7 +31,7 @@ function Notice() {
         admin_id: adminData.id,
         college_id: adminData.college_id,
       };
-      const newNotice = await addNotice(data);
+      const newNotice = await addTableData("Notice", data);
       if (newNotice) {
         setNotices((prev) => [newNotice, ...prev]);
         dispatch(setNoticeSlice([newNotice, ...notices]));
