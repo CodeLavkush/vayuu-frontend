@@ -1,12 +1,28 @@
-# React + Vite
+# Vayuu – College Management System  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Vayuu is a **flexible, modern, and minimalist** college management system built to streamline campus operations.  
+It provides a seamless way for **Admins, Faculty, and Students** to interact with college data through a clean, intuitive interface.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features  
 
-## Expanding the ESLint configuration
+- 🔑 **Authentication & Authorization** (role-based: Admin, Faculty, Student)  
+- 🏫 **College Information Management** (college profile, contact, address, etc.)  
+- 👨‍🎓 **User Roles & Access Control**  
+- 📊 **Dashboard for Each Role** with personalized information  
+- 🌓 **Minimal, Modern UI** with dark theme  
+- 🔄 **Persistent Sessions** (Redux + Supabase auth)  
+- 📱 **Responsive Design** (works across desktop and mobile)  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack  
+
+- **Frontend:** React, Redux Toolkit, Redux Persist, React Router  
+- **UI:** TailwindCSS, shadcn/ui, Framer Motion, Lucide Icons  
+- **Backend / Auth:** Supabase (Postgres + Auth)  
+- **State Management:** Redux Toolkit  
+- **Notifications:** Sonner  
+
+---
