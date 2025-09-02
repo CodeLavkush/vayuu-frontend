@@ -26,6 +26,54 @@ async function addNotice({title, content, admin_id, faculty_id, college_id}) {
     }
 }
 
+async function addDepartment({ name, college_id }) {
+    try {
+        const { data, error } = await client
+        .from("Department")
+        .insert([
+            {
+                name, 
+                college_id
+            }
+        ])
+        .select()
+        .single()
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error("Error inserting department")
+        throw error
+    }
+}
+
+async function addCourse({ name, code, college_id, department_id }) {
+    try {
+        const { data, error } = await client
+        .from("Courses")
+        .insert([
+            {
+                name,
+                code,
+                college_id,
+                department_id,
+            }
+        ])
+        .select()
+        .single()
+
+        if(error) throw error
+
+        return data
+    } catch (error) {
+        console.error("Error inserting course")
+        throw error
+    }
+}
+
 export {
     addNotice,
+    addDepartment,
+    addCourse,
 }

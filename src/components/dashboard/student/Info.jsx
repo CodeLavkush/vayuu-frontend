@@ -9,8 +9,6 @@ import { MoveLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { authLogout } from '@/supabase/auth';
-import { logout } from '@/store/authSlice';
-import { useDispatch } from 'react-redux';
 
 function Info() {
   const authUser = useSelector((state) => state.auth.data);
@@ -19,7 +17,6 @@ function Info() {
   const [college, setCollege] = useState({});
   const [course, setCourse] = useState({});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
