@@ -28,10 +28,10 @@ function Info() {
   const navigate = useNavigate();
   const [subjectName, setSubjectName] = useState('');
   const [subjectCode, setSubjectCode] = useState('');
-  const coursesState = useSelector((state)=> state.courses.data)
-  const [selectedCourse, setSelectedCourse] = useState('')
-  const [courses, setCourses] = useState([])
-  const dispatch = useDispatch()
+  const coursesState = useSelector((state) => state.courses.data);
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [courses, setCourses] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -64,38 +64,41 @@ function Info() {
 
   const handleAddSubject = async () => {
     try {
-      const course = courses.filter((c)=> c.name === selectedCourse)
+      const course = courses.filter((c) => c.name === selectedCourse);
       const data = {
-        "name": subjectName,
-        "code": subjectCode,
-        "course_id": course[0]?.id,
-        "faculty_id": faculty?.id,
-        "college_id": college?.id,
-      }
-      const res = await addTableData("Subjects", data)
-      if(res){
-        dispatch(addSubjectsSlice(res))
-        SuccessToast("Subject Added!")
-        setSubjectCode('')
-        setSubjectName('')
-        setSelectedCourse('')
+        name: subjectName,
+        code: subjectCode,
+        course_id: course[0]?.id,
+        faculty_id: faculty?.id,
+        college_id: college?.id,
+      };
+      const res = await addTableData('Subjects', data);
+      if (res) {
+        dispatch(addSubjectsSlice(res));
+        SuccessToast('Subject Added!');
+        setSubjectCode('');
+        setSubjectName('');
+        setSelectedCourse('');
       }
     } catch (error) {
-      ErrorToast("Subject cannot be added....")
+      ErrorToast('Subject cannot be added....');
       throw error;
     }
   };
 
-  useEffect(()=>{
-    setCourses(coursesState)
-  }, [])
+  useEffect(() => {
+    if (department?.id) {
+      const courseData = coursesState.filter((c) => c.department_id === department.id);
+      setCourses(courseData);
+    }
+  }, [department, coursesState]);
 
   return (
-    <div className="bg-gray-900 min-h-screen w-screen flex flex-col items-center text-white p-4 gap-6 overflow-x-hidden">
-      {/* Personal Info */}
-      <Card className="w-full max-w-2xl max-h-screen overflow-y-auto bg-gray-800 text-white border-purple-700 rounded-xl">
+    <div className="bg-gray-900 min-h-screen w-screen flex flex-col lg:flex-row items-start justify-center text-white p-4 gap-6 overflow-x-hidden">
+      {/* Left Side: Personal Info */}
+      <Card className="w-full lg:w-1/2 bg-gray-800 text-white border-purple-700 rounded-xl flex flex-col max-h-screen">
         <CardHeader>
-          <CardTitle className="text-base sm:text-lg md:text-2xl text-center md:text-left break-words">
+          <CardTitle className="text-base sm:text-lg md:text-2xl text-center lg:text-left">
             Personal Information
           </CardTitle>
         </CardHeader>
@@ -112,7 +115,7 @@ function Info() {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="flex flex-col md:flex-row flex-1 gap-2 justify-between items-center w-full"
+              className="flex flex-col md:flex-row gap-2 justify-between items-center w-full"
             >
               <Label className="w-full md:w-40 text-center md:text-left break-words">
                 {item.label}
@@ -126,7 +129,7 @@ function Info() {
           ))}
         </CardContent>
 
-        <CardFooter>
+        <CardFooter className="mt-auto">
           <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-0">
             <Button
               onClick={handleLogout}
@@ -144,10 +147,10 @@ function Info() {
         </CardFooter>
       </Card>
 
-      {/* Add Subject Card */}
-      <Card className="w-full max-w-2xl bg-gray-800 text-white border-purple-700 rounded-xl">
+      {/* Right Side: Add Subject */}
+      <Card className="w-full lg:w-1/2 bg-gray-800 text-white border-purple-700 rounded-xl">
         <CardHeader>
-          <CardTitle className="text-base sm:text-lg md:text-2xl text-center md:text-left">
+          <CardTitle className="text-base sm:text-lg md:text-2xl text-center lg:text-left">
             Add Subject
           </CardTitle>
         </CardHeader>
@@ -176,8 +179,8 @@ function Info() {
           <div className="flex flex-col gap-2">
             <Label>Courses</Label>
             <Select value={selectedCourse} onValueChange={setSelectedCourse}>
-              <SelectTrigger className="bg-gray-900 border-purple-700 text-white w-full max-w-full">
-                <SelectValue placeholder="Select Department" />
+              <SelectTrigger className="bg-gray-900 border-purple-700 text-white w-full">
+                <SelectValue placeholder="Select Course" />
               </SelectTrigger>
               <SelectContent
                 position="popper"
@@ -194,10 +197,7 @@ function Info() {
         </CardContent>
 
         <CardFooter className="flex justify-end">
-          <Button
-            onClick={handleAddSubject}
-            className="bg-purple-700 hover:bg-purple-900"
-          >
+          <Button onClick={handleAddSubject} className="bg-purple-700 hover:bg-purple-900">
             Add Subject
           </Button>
         </CardFooter>
