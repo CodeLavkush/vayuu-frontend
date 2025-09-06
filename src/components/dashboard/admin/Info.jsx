@@ -40,12 +40,14 @@ function Info() {
       try {
         const adminData = await getTableByUserId('Admin', authUser.id);
         const collegeData = await getTableById('College', adminData.college_id);
-        if (adminData) {
-          setAdmin(adminData);
-          setCollege(collegeData);
-        }
+
+        if(!adminData) return
+
+        setAdmin(adminData);
+        setCollege(collegeData);
+
       } catch (error) {
-        console.log('ERROR while fetching admin and college info');
+        console.error('ERROR:', error);
       }
     }
     fetchData();
@@ -55,8 +57,9 @@ function Info() {
     try {
       await authLogout();
       navigate('/login');
-    } catch {
+    } catch(error) {
       ErrorToast('Error during logout');
+      console.error("ERROR:", error)
     }
   };
 
@@ -66,15 +69,18 @@ function Info() {
         name: department,
         college_id: college?.id,
       };
+
       const res = await addTableData('Department', data);
-      if (res) {
-        dispatch(addDepartmentsSlice(res));
-        setDepartments((depts) => [...depts, res]);
-        SuccessToast('Department added!');
-        setDepartment('');
-      }
-    } catch {
+
+      if (!res) return
+      
+      dispatch(addDepartmentsSlice(res));
+      setDepartments((depts) => [...depts, res]);
+      SuccessToast('Department added!');
+      setDepartment('');
+    } catch(error) {
       ErrorToast('Department cannot be added.');
+      console.error("ERROR:", error)
     }
   };
 
@@ -88,15 +94,18 @@ function Info() {
         college_id: college?.id,
       };
       const res = await addTableData('Courses', data);
-      if (res) {
-        dispatch(addCoursesSlice(res));
-        SuccessToast('Course added!');
-        setCourseName('');
-        setCourseCode('');
-        setSelectedDepartment('');
-      }
-    } catch {
+
+      if (!res) return
+
+      dispatch(addCoursesSlice(res));
+      SuccessToast('Course added!');
+      setCourseName('');
+      setCourseCode('');
+      setSelectedDepartment('');
+      
+    } catch(error) {
       ErrorToast('Course cannot be added.');
+      console.error("ERROR:", error)
     }
   };
 

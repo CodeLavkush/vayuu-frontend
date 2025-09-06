@@ -19,11 +19,12 @@ function Exams() {
     async function fetchFaculty() {
       try {
         const facultyData = await getTableByUserId('Faculty', authUser.id);
-        if (facultyData) {
-          setFaculty(facultyData);
-        }
+
+        if(!facultyData) return
+        
+        setFaculty(facultyData);
       } catch (error) {
-        throw error
+        console.error("ERROR:", error)
       }
     }
     if (authUser?.id) {

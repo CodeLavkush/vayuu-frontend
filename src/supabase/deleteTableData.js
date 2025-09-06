@@ -13,8 +13,7 @@ async function deleteTableById(tableName, column, id) {
 
         return data
     } catch (error) {
-        console.error(`Error deleting ${tableName}`)
-        throw error
+        console.error(`Error deleting ${tableName}`, error)
     }
 }
 

@@ -27,7 +27,7 @@ function Exams() {
         const subjectsData = subjectsSlice.filter((subject) => subject.course_id === course.id);
         setSubjects(subjectsData);
       } catch (error) {
-        throw error
+        console.error("ERROR:", error)
       }
     }
     fetchData();

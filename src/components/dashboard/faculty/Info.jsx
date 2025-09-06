@@ -39,14 +39,15 @@ function Info() {
         const facultyData = await getTableByUserId('Faculty', authUser.id);
         const departmentData = await getTableById('Department', facultyData.department_id);
         const collegeData = await getTableById('College', facultyData.college_id);
-        if (facultyData) {
-          setDepartment(departmentData);
-          setFaculty(facultyData);
-          setCollege(collegeData);
-        }
+
+        if (!facultyData) return
+
+        setDepartment(departmentData);
+        setFaculty(facultyData);
+        setCollege(collegeData);
+
       } catch (error) {
         console.error('ERROR while fetching info');
-        throw error;
       }
     }
     fetchData();
@@ -58,7 +59,6 @@ function Info() {
       navigate('/login');
     } catch (error) {
       console.error('Error logout');
-      throw error;
     }
   };
 
@@ -72,17 +72,19 @@ function Info() {
         faculty_id: faculty?.id,
         college_id: college?.id,
       };
+      
       const res = await addTableData('Subjects', data);
-      if (res) {
-        dispatch(addSubjectsSlice(res));
-        SuccessToast('Subject Added!');
-        setSubjectCode('');
-        setSubjectName('');
-        setSelectedCourse('');
-      }
+
+      if (!res) return
+
+      dispatch(addSubjectsSlice(res));
+      SuccessToast('Subject Added!');
+      setSubjectCode('');
+      setSubjectName('');
+      setSelectedCourse('');
+
     } catch (error) {
       ErrorToast('Subject cannot be added....');
-      throw error;
     }
   };
 

@@ -48,13 +48,13 @@ function Login() {
     } catch (error) {
       console.error("LOGIN FORM ERROR:", error)
       ErrorToast("Login failed!")
-      throw error
     }
   }
 
   useEffect(() => {
     document.title = "Login - Log into your account";
   }, []);
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 p-4">
       <motion.div

@@ -12,7 +12,7 @@ async function addTableData(tableName, payload) {
 
         return data
     } catch (error) {
-        console.error(`Error inserting ${tableName}`)
+        console.error(`Error inserting ${tableName}`, error)
     }
 }
 

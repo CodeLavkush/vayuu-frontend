@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { adminSignup as authAdminSignup } from "@/supabase/auth";
-import { useDispatch } from "react-redux";
 import { SuccessToast } from "@/helper/SuccessToast";
 import { ErrorToast } from "@/helper/ErrorToast";
 
@@ -34,14 +33,15 @@ function Admin() {
         "address": address,
       }
       const res = await authAdminSignup(data)
-      if(res){
-        SuccessToast("Your profile is created!")
-        navigate("/login")
-      }
+
+      if(!res) return
+
+      SuccessToast("Your profile is created!")
+      navigate("/login")
+
     } catch (error) {
       console.error("ADMIN FORM ERROR:", error)
       ErrorToast("Profile creation failed!")
-      throw error
     }
   }
 

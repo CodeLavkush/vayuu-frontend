@@ -25,15 +25,16 @@ function Info() {
         const collegeData = await getTableById('College', studentData.college_id);
         const departmentData = await getTableById('Department', studentData.department_id);
         const courseData = await getTableById('Courses', studentData.course_id);
-        if (studentData) {
-          setStudent(studentData);
-          setCollege(collegeData);
-          setDepartment(departmentData);
-          setCourse(courseData);
-        }
+
+        if (!studentData) return
+
+        setStudent(studentData);
+        setCollege(collegeData);
+        setDepartment(departmentData);
+        setCourse(courseData);
+        
       } catch (error) {
-        console.error('Error while fetching student info', error);
-        throw error;
+        console.error('ERROR:', error);
       }
     }
     fetchData();
@@ -44,8 +45,7 @@ function Info() {
       await authLogout();
       navigate('/login');
     } catch (error) {
-      console.error('Error logout');
-      throw error;
+      console.error('ERROR:', error);
     }
   };
 

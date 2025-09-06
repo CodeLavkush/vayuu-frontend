@@ -59,14 +59,14 @@ function Exams() {
 
       const res = await addTableData('Exams', data);
 
-      if (res) {
-        setExams(res);
-        dispatch(addExams(res));
-        SuccessToast('Exam has been declared!');
-      }
+      if(!res) return
+      setExams(res);
+      dispatch(addExams(res));
+      SuccessToast('Exam has been declared!');
+
     } catch (error) {
       ErrorToast('Failed to declare exam');
-      throw error;
+      console.error("ERROR:", error)
     } finally {
       setExamType('');
       setDuration('');
@@ -87,13 +87,16 @@ function Exams() {
     async function fetchData() {
       try {
         const adminData = await getTableByUserId('Admin', authUser.id);
+
+        if(!adminData) return
+
         setAdmin(adminData);
         const departmentsData = departmentsSlice.filter(
           (dept) => dept.college_id === adminData?.college_id
         );
         setDepartments(departmentsData);
       } catch (error) {
-        throw error;
+        console.error("ERROR:", error)
       }
     }
     fetchData();

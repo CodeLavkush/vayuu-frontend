@@ -58,14 +58,14 @@ function Student() {
       }
 
       const res = await studentSignup(data)
-      if(res){
-        SuccessToast("Your profile is created!")
-        navigate("/login")
-      }
+
+      if(!res) return
+
+      SuccessToast("Your profile is created!")
+      navigate("/login")
     } catch (error) {
       console.error("STUDENT FORM ERROR:", error)
       ErrorToast("Profile creation failed!")
-      throw error
     }
   }
 
@@ -77,6 +77,9 @@ function Student() {
   useEffect(() => {
     async function fetchColleges() {
       const collegesData = await getCollegeIdAndName();
+
+      if(!collegesData) return
+
       setColleges(collegesData);
     }
     fetchColleges();
@@ -86,6 +89,9 @@ function Student() {
     async function fetchDepartments() {
       if (!selectedCollege) return;
       const departmentsData = await getDepartmentIdAndName(selectedCollege);
+
+      if(!departmentsData) return
+
       setDepartments(departmentsData);
 
     }
@@ -96,6 +102,9 @@ function Student() {
     async function fetchCourses() {
       if (!selectedCollege) return;
       const coursesData = await getCoursesIdAndName(selectedCollege, selectedDepartment);
+
+      if(!coursesData) return
+      
       setCourses(coursesData);
     }
     fetchCourses();

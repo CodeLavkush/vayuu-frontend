@@ -32,28 +32,31 @@ function Notice() {
         college_id: adminData.college_id,
       };
       const newNotice = await addTableData("Notice", data);
-      if (newNotice) {
-        setNotices((prev) => [newNotice, ...prev]);
-        dispatch(setNoticeSlice([newNotice, ...notices]));
-        setTitle('');
-        setMessage('');
-        SuccessToast("New Notice Added!")
-      }
+
+      if(!newNotice) return
+
+      setNotices((prev) => [newNotice, ...prev]);
+      dispatch(setNoticeSlice([newNotice, ...notices]));
+      setTitle('');
+      setMessage('');
+      SuccessToast("New Notice Added!")
+
     } catch (error) {
-      console.error('Error notice form', error);
       ErrorToast("New Notice cannot be added...")
+      console.error('Error notice form', error);
     }
   };
 
   const handleDeleteNotice = async (noticeId)=>{
     try {
       const res = await deleteTableById("Notice", "id", noticeId)
-      if(res){
-        setNotices((prev) => prev.filter((n) => n.id !== noticeId));
-        dispatch(deleteNotice(noticeId))
-      }
+
+      if(!res) return
+
+      setNotices((prev) => prev.filter((n) => n.id !== noticeId));
+      dispatch(deleteNotice(noticeId))
     } catch (error) {
-      throw error
+      console.error("ERROR:", error)
     }
   }
 
@@ -61,11 +64,12 @@ function Notice() {
     async function fetchData() {
       try {
         const res = await getTableInAscendingOrder("created_at", false, "Notice")
-        if(res){
-          setNotices(res)
-        }
+
+        if(!res) return
+
+        setNotices(res)
       } catch (error) {
-        throw error
+        console.error("ERROR:", error)
       }
     }
     fetchData()

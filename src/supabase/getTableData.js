@@ -12,7 +12,6 @@ async function getCollegeIdAndName() {
         return data
     } catch (error) {
         console.error("Error fetching colleges:", error.message);
-        throw error
     }
 }
 
@@ -29,7 +28,6 @@ async function getDepartmentIdAndName(college_id) {
         return data
     } catch (error) {
         console.error("Error fetching departments:", error.message);
-        throw error
     }
 }
 
@@ -47,7 +45,6 @@ async function getCoursesIdAndName(college_id, department_id) {
         return data
     } catch (error) {
         console.error("Error fetching courses:", error.message)
-        throw error
     }
 }
 
@@ -64,7 +61,6 @@ async function getTableByUserId(tableName, user_id) {
         return data
     } catch (error) {
         console.error(`Error fetching ${tableName}:`, error)
-        throw error
     }
 }
 
@@ -81,7 +77,6 @@ async function getTableById(tableName, id) {
         return data
     } catch (error) {
         console.error(`Error fetching ${tableName}:`, error)
-        throw error
     }
 }
 
@@ -96,7 +91,6 @@ async function getAllEntriesFromTable(tableName) {
         return data
     } catch (error) {
         console.error(`Error fetching ${tableName}:`, error)
-        throw error
     }
 }
 
@@ -112,7 +106,6 @@ async function getTableInAscendingOrder(order_by, isAscending, tableName) {
         return data
     } catch (error) {
         console.error(`Error fetching ${tableName}:`, error)
-        throw error
     }
 }
 

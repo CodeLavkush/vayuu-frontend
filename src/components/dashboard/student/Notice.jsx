@@ -13,11 +13,12 @@ function Notice() {
     async function fetchData() {
       try {
         const res = await getTableInAscendingOrder("created_at", false, "Notice")
-        if(res){
-          setNotices(res)
-        }
+
+        if(!res) return
+        
+        setNotices(res)
       } catch (error) {
-        throw error
+        console.error("ERROR:", error)
       }
     }
     fetchData()

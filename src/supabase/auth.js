@@ -42,7 +42,6 @@ async function adminSignup({ college_name, reg_no, phone_no, email, password, ad
         return user
     } catch (error) {
         console.error("ADMIN SIGNUP ERROR:", error)
-        throw error
     }
 }
 
@@ -76,7 +75,6 @@ async function facultySignup({ full_name, phone_no, address, email, password, co
         return user
     } catch (error) {
         console.error("FACULTY SIGNUP ERROR:", error)
-        throw error
     }
 }
 
@@ -113,7 +111,6 @@ async function studentSignup({ full_name, phone_no, address, dob, blood_group, c
         return user
     } catch (error) {
         console.error("STUDENT SIGNUP ERROR:", error)
-        throw error
     }
 }
 
@@ -126,7 +123,6 @@ async function authLogin({ email, password }) {
         return authData
     } catch (error) {
         console.error("USER LOGIN ERROR:", error)
-        throw error
     }
 }
 
@@ -140,7 +136,6 @@ async function  authLogout() {
 
     } catch (error) {
         console.error("LOGOUT ERROR:", error)
-        throw error
     }
 }
 

@@ -47,14 +47,14 @@ export default function Faculty() {
       }
 
       const res = await authFacultySignup(data)
-      if(res){
-        SuccessToast("Your profile is created!")
-        navigate("/login")
-      }
+
+      if(!res) return
+
+      SuccessToast("Your profile is created!")
+      navigate("/login")
     } catch (error) {
       console.error("FACULTY FORM ERROR:", error)
       ErrorToast("Profile creation failed!")
-      throw error
     }
   }
 
@@ -70,8 +70,10 @@ export default function Faculty() {
     async function fetchDepartments() {
       if (!selectedCollege) return;
       const departmentsData = await getDepartmentIdAndName(selectedCollege);
-      setDepartments(departmentsData);
 
+      if(!departmentsData) return
+
+      setDepartments(departmentsData);
     }
     fetchDepartments();
   }, [selectedCollege]);
